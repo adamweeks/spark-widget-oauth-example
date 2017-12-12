@@ -4,14 +4,27 @@
   "description": "Cisco Spark Widget OAuth Example",
   "main": "src/index.js",
   "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Adam Weeks <adweeks@cisco.com>",
   "license": "MIT",
   "devDependencies": {
     "@ciscospark/eslint-config-base": "^0.5.0",
-    "eslint": "^4.12.1",
+    "@ciscospark/eslint-config-react": "^0.5.0",
+    "babel-eslint": "^8.0.3",
+    "clean-webpack-plugin": "^0.1.17",
+    "eslint": "^4.13.1",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-mocha": "^4.11.0"
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-react": "^7.5.1",
+    "html-webpack-plugin": "^2.30.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7"
+  },
+  "dependencies": {
+    "ciscospark": "^1.21.3"
   }
 }
