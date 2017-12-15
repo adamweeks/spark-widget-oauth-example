@@ -2,6 +2,7 @@
   "extends": "@ciscospark/eslint-config-react",
   "rules":
     {
+      "operator-linebreak": ["error", "after"],
       "require-jsdoc": "off"
     },
   "env": {
