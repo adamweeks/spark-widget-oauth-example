@@ -1,7 +1,9 @@
-function component() {
-  var element = document.createElement('div');
-  element.innerHTML = 'Cisco Spark Widgets & SDK';
-  return element;
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-document.body.appendChild(component());
+import Main from './main';
+
+ReactDOM.render(
+  <Main />,
+  document.getElementById('main')
+);
