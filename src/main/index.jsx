@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Login from '../login';
+import SpaceWidget from '../space-widget';
 
 class Main extends Component {
   constructor() {
@@ -34,7 +35,7 @@ class Main extends Component {
         {
           this.state.authorized &&
           (
-            <div>{this.state.token}</div>
+            <SpaceWidget token={this.state.token} />
           )
         }
       </div>
