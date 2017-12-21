@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 
-import Login from '../login';
-import SpaceWidget from '../space-widget';
+import Login from './Login';
+import SpaceWidget from './SpaceWidget';
+import createSpark from './spark';
 
 class Main extends Component {
   constructor() {
@@ -9,10 +10,20 @@ class Main extends Component {
 
     this.state = {
       authorized: false,
-      token: null
+      token: null,
+      ready: false
     };
 
     this.handleAuthorize = this.handleAuthorize.bind(this);
+
+    this.setupSpark();
+  }
+
+  setupSpark() {
+    createSpark().then((spark) => {
+      this.sparkInstance = spark;
+      this.setState({ready: true});
+    });
   }
 
   handleAuthorize(token) {
@@ -23,13 +34,18 @@ class Main extends Component {
   }
 
   render() {
+    if (!this.state.ready) {
+      return (
+        <div>Loading...</div>
+      );
+    }
     return (
       <div>
         Spark OAuth Demo <br />
         {
           !this.state.authorized &&
           (
-            <Login onAuthorization={this.handleAuthorize} />
+            <Login onAuthorization={this.handleAuthorize} spark={this.sparkInstance} />
           )
         }
         {
