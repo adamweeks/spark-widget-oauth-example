@@ -25,7 +25,7 @@ class SpaceWidget extends Component {
     // Init a new widget
     window.ciscospark.widget(widgetEl).spaceWidget({
       accessToken: this.props.token,
-      toUserEmail: this.state.toUserEmail
+      toPersonEmail: this.state.toUserEmail
     });
   }
 
