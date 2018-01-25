@@ -1,15 +1,18 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import ciscospark from 'ciscospark';
 
-class Login extends Component {
+import Login from './Login';
+import Logout from './Logout';
+import SpaceWidget from './SpaceWidget';
+
+class Main extends Component {
   constructor() {
     super();
 
-    this.handleLogin = this.handleLogin.bind(this);
-
     this.state = {
-      ready: false
+      authorized: false,
+      ready: false,
+      token: null
     };
 
     this.setupSpark();
@@ -22,7 +25,7 @@ class Login extends Component {
       if (this.spark.canAuthorize) {
         // Authorization is successful
         this.spark.credentials.getUserToken().then((token) => {
-          this.props.onAuthorization(token.access_token);
+          this.handleAuthorize(token.access_token);
         });
       }
     });
@@ -45,24 +48,40 @@ class Login extends Component {
     });
   }
 
-  handleLogin() {
-    // initiate the login sequence if not authenticated.
-    this.spark.authorization.initiateLogin();
+
+  handleAuthorize(token) {
+    this.setState({
+      authorized: true,
+      token
+    });
   }
 
   render() {
     return (
       <div>
-        <button disabled={!this.state.ready} onClick={this.handleLogin}>
-          Login
-        </button>
+        Spark OAuth Demo <br />
+        {
+          !this.state.ready &&
+          <div>Loading...</div>
+        }
+        {
+          this.state.ready && !this.state.authorized &&
+          (
+            <Login ready={this.state.ready} spark={this.spark} />
+          )
+        }
+        {
+          this.state.ready && this.state.authorized &&
+          (
+            <div>
+              <Logout spark={this.spark} />
+              <SpaceWidget token={this.state.token} />
+            </div>
+          )
+        }
       </div>
     );
   }
 }
 
-Login.propTypes = {
-  onAuthorization: PropTypes.func.isRequired
-};
-
-export default Login;
+export default Main;
